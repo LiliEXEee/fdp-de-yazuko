@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matchmaking - Eryth</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #202736 60%, #181f2a 100%);
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Inter', Arial, Helvetica, sans-serif;
+      color: #fff;
+    }
+    .container {
+      max-width: 540px;
+      margin: 60px auto 0 auto;
+      background: rgba(24,31,42,0.98);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      padding: 36px 32px 32px 32px;
+      text-align: center;
+    }
+    h1 {
+      color: #00BFFF;
+      font-size: 2.6rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .center-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      margin: 24px auto 0 auto;
+      padding: 22px 60px;
+      font-size: 1.5rem;
+      font-weight: 900;
+      border-radius: 18px;
+      background: linear-gradient(90deg, #00BFFF 0%, #0090c7 100%);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(0,191,255,0.18), 0 2px 12px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: background 0.25s, transform 0.15s;
+      text-decoration: none;
+      outline: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .center-btn:hover {
+      background: linear-gradient(90deg, #0090c7 0%, #00BFFF 100%);
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 10px 32px rgba(0,191,255,0.22), 0 4px 18px rgba(0,0,0,0.16);
+    }
+    .btn-icon {
+      font-size: 2rem;
+      filter: drop-shadow(0 2px 8px #00BFFF88);
+      opacity: 0.85;
+    }
+    .info {
+      color: #cbe8ff;
+      font-size: 1.08rem;
+      margin-bottom: 18px;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 24px;
+      color: #00BFFF;
+      text-decoration: underline;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    .loader-bg {
+      position: fixed;
+      top:0; left:0; width:100vw; height:100vh;
+      background: rgba(24,31,42,0.98);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .lds-ring {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+    .lds-ring div {
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      margin: 8px;
+      border: 8px solid #00BFFF;
+      border-radius: 50%;
+      animation: lds-ring 1.2s cubic-bezier(0.5,0,0.5,1) infinite;
+      border-color: #00BFFF transparent transparent transparent;
+    }
+    .lds-ring div:nth-child(1) { animation-delay: -0.45s; }
+    .lds-ring div:nth-child(2) { animation-delay: -0.3s; }
+    .lds-ring div:nth-child(3) { animation-delay: -0.15s; }
+    @keyframes lds-ring {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+    .match-container {
+      max-width: 900px;
+      margin: 60px auto 0 auto;
+      background: rgba(24,31,42,0.98);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      padding: 36px 32px 32px 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .player-card {
+      flex: 1 1 260px;
+      background: #181f2a;
+      border-radius: 14px;
+      padding: 24px 18px;
+      text-align: center;
+      min-width: 220px;
+      max-width: 320px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    }
+    .player-card img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    }
+    .player-card .username {
+      color: #00BFFF;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+    .player-card .elo {
+      color: #fff;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+    .player-card .rank {
+      color: #cbe8ff;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .rules-box {
+      flex: 1 1 320px;
+      background: #232b3a;
+      border-radius: 14px;
+      padding: 24px 18px;
+      color: #fff;
+      font-size: 1.08rem;
+      margin-bottom: 18px;
+      min-width: 260px;
+      max-width: 340px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    }
+    .rules-box h2 {
+      color: #00BFFF;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      font-weight: 900;
+      text-align: center;
+    }
+    .chat-box {
+      flex: 1 1 320px;
+      background: #181f2a;
+      border-radius: 14px;
+      padding: 18px 12px 12px 12px;
+      margin-bottom: 18px;
+      min-width: 260px;
+      max-width: 340px;
+      display: flex;
+      flex-direction: column;
+      height: 340px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+      color: #fff;
+      text-align: left;
+    }
+    .chat-input-row {
+      display: flex;
+      gap: 8px;
+    }
+    .chat-input-row input {
+      flex: 1;
+      border-radius: 8px;
+      border: none;
+      padding: 8px;
+      font-size: 1rem;
+      background: #232b3a;
+      color: #fff;
+    }
+    .chat-input-row button {
+      border-radius: 8px;
+      border: none;
+      background: #00BFFF;
+      color: #fff;
+      font-weight: 700;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .chat-input-row button:hover {
+      background: #0090c7;
+    }
+    .match-actions {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      margin-top: 18px;
+    }
+    .match-actions button {
+      padding: 14px 32px;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      border: none;
+      background: #00BFFF;
+      color: #fff;
+      font-weight: 900;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-transform: uppercase;
+    }
+    .match-actions button:hover {
+      background: #0090c7;
+    }
+    #queue-log {
+      margin-top: 18px;
+      color: #00BFFF;
+      font-size: 1.1rem;
+      word-break: break-all;
+    }
+    @media (max-width: 900px) {
+      .match-container { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="main-container">
+    <h1>Matchmaking</h1>
+    <div class="info">
+      Bienvenue dans l'espace matchmaking du clan Eryth.<br>
+      Ici, tu peux trouver des adversaires ou des coéquipiers pour tes parties.<br>
+      Clique sur le bouton ci-dessous pour lancer la recherche d'un match !
+    </div>
+    <button class="center-btn" id="find-match-btn">
+      <span class="btn-icon">⚡</span>
+      <span>🎮 Trouver un match</span>
+    </button>
+    <div id="queue-log"></div>
+    <br>
+    <a href="index.html" class="back-link">← Retour à l'accueil</a>
+  </div>
+
+  <div id="loader-bg" class="loader-bg" style="display:none;">
+    <div>
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+      <div style="margin-top:18px;text-align:center;font-size:1.2rem;color:#00BFFF;font-weight:700;">
+        Recherche d'un adversaire...
+      </div>
+    </div>
+  </div>
+
+  <div id="match-container" class="match-container" style="display:none;">
+  </div>
+
+  <div id="leave-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:10000;background:rgba(24,31,42,0.7);align-items:center;justify-content:center;">
+    <div style="background:rgba(24,31,42,0.98);border-radius:16px;padding:36px 32px;box-shadow:0 4px 24px rgba(0,0,0,0.18);max-width:340px;width:90vw;text-align:center;">
+      <div style="font-size:1.25rem;color:#fff;margin-bottom:18px;">Voulez-vous vraiment quitter la file d'attente ?</div>
+      <div style="display:flex;gap:18px;justify-content:center;">
+        <button id="leave-confirm" style="padding:12px 28px;border-radius:8px;background:#f54266;color:#fff;font-weight:700;border:none;font-size:1.1rem;cursor:pointer;">Confirmer</button>
+        <button id="leave-cancel" style="padding:12px 28px;border-radius:8px;background:#232b3a;color:#fff;font-weight:700;border:none;font-size:1.1rem;cursor:pointer;">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function registerUser(username, email, password) {
+      let users = getUsers();
+      if (users.some(u => u.username === username)) {
+        alert("Ce nom d'utilisateur existe déjà.");
+        return false;
+      }
+      users.push({
+        username: username,
+        email: email,
+        password: password,
+        rank: "Non classé",
+        elo: 0
+      });
+      localStorage.setItem('eryth_users', JSON.stringify(users));
+      return true;
+    }
+
+    function getCurrentUser() {
+      return localStorage.getItem('eryth_current_user');
+    }
+
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('eryth_users') || '[]');
+    }
+
+    function getCurrentUserObj() {
+      const username = getCurrentUser();
+      const user = getUsers().find(u => u.username === username);
+      if (user) {
+        user.rank = (!user.rank || user.rank === "" || user.rank === undefined) ? "Non classé" : user.rank;
+        user.elo = (!user.elo || user.elo < 0) ? 0 : user.elo;
+      }
+      return user;
+    }
+
+    const QUEUE_KEY = 'eryth_matchmaking_queue';
+    const MATCH_KEY = 'eryth_matchmaking_match';
+
+    function joinQueue(user) {
+      let queue = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]');
+      queue = queue.filter(q => q.username !== user.username);
+      queue.push({
+        username: user.username,
+        elo: user.elo || 0,
+        ts: Date.now()
+      });
+      localStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
+      const logDiv = document.getElementById('queue-log');
+      if (logDiv) {
+        logDiv.textContent = `Ajouté à la queue : ${user.username}`;
+      }
+    }
+
+    function leaveQueue(username) {
+      let queue = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]');
+      queue = queue.filter(q => q.username !== username);
+      localStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
+      const logDiv = document.getElementById('queue-log');
+      if (logDiv) logDiv.textContent = '';
+    }
+
+    function tryFindMatch(user) {
+      let queue = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]');
+      queue = queue.filter(q => q.username !== user.username);
+      let best = null, bestDiff = 99999;
+      for (const q of queue) {
+        const diff = Math.abs((q.elo || 0) - (user.elo || 0));
+        if (diff < bestDiff /* && diff <= 100 */) {
+          best = q;
+          bestDiff = diff;
+        }
+      }
+      if (best) {
+        const matchId = 'match_' + Date.now() + '_' + Math.floor(Math.random()*10000);
+        const match = {
+          id: matchId,
+          players: [
+            { username: user.username, elo: user.elo || 0 },
+            { username: best.username, elo: best.elo || 0 }
+          ],
+          chat: [],
+          created: Date.now()
+        };
+        localStorage.setItem(MATCH_KEY, JSON.stringify(match));
+        leaveQueue(user.username);
+        leaveQueue(best.username);
+        return match;
+      }
+      return null;
+    }
+
+    function getCurrentMatch(user) {
+      const match = JSON.parse(localStorage.getItem(MATCH_KEY) || 'null');
+      if (!match) return null;
+      if (match.players.some(p => p.username === user.username)) return match;
+      return null;
+    }
+
+    function showMatch(match, currentUser) {
+      document.getElementById('loader-bg').style.display = 'none';
+      document.getElementById('main-container').style.display = 'none';
+      removeBackArrow();
+      document.getElementById('leave-modal').style.display = 'none';
+      const matchDiv = document.getElementById('match-container');
+      matchDiv.style.display = 'flex';
+
+      const users = getUsers();
+      const p1 = users.find(u => u.username === match.players[0].username) || match.players[0];
+      const p2 = users.find(u => u.username === match.players[1].username) || match.players[1];
+
+      let chatHtml = `
+        <div class="chat-box">
+          <div class="chat-messages" id="chat-messages"></div>
+          <div class="chat-input-row">
+            <input type="text" id="chat-input" placeholder="Envoyer un message...">
+            <button onclick="sendChatMessage()">Envoyer</button>
+          </div>
+        </div>
+      `;
+
+      let rulesHtml = `
+        <div class="rules-box">
+          <h2>📜 Règles du Ranked Buildfight</h2>
+          <b>🏆 Mode de jeu</b><br>
+          First to 5<br><br>
+          <b>⚔️ Armes autorisées</b><br>
+          AR bleu / Spas gold (🚫 Pas de mini, ni de PM)<br><br>
+          <b>🔄 Règles rematch</b><br>
+          Vous ne pouvez pas casser plus de 50% du Buildfight<br>
+          Si vous tombez seul, vous remontez<br>
+          Si l’adversaire vous fait tomber, vous pouvez RESET<br>
+          Maximum 3 speedy<br>
+          ❌ No mental<br>
+          🎥 N'oubliez pas d'enregistrer vos matchs pour preuve de triche ! (Activez vos rediffusions)
+        </div>
+      `;
+
+      function playerCard(u) {
+        const rank = (!u.rank || u.rank === "" || u.rank === undefined) ? "Non classé" : u.rank;
+        const elo = (!u.elo || u.elo < 0) ? 0 : u.elo;
+        return `
+          <div class="player-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User">
+            <div class="username">${u.username}</div>
+            <div class="elo">ELO : ${elo}</div>
+            <div class="rank">${rank}</div>
+          </div>
+        `;
+      }
+
+      let actionsHtml = `
+        <div class="match-actions">
+          <button onclick="window.location.href='index.html'">Quitter</button>
+          <button onclick="alert('Fonctionnalité à venir !')">Signaler un problème</button>
+        </div>
+      `;
+
+      matchDiv.innerHTML = `
+        ${playerCard(p1)}
+        ${playerCard(p2)}
+        ${rulesHtml}
+        ${chatHtml}
+        ${actionsHtml}
+      `;
+
+      function renderChat() {
+        const match = JSON.parse(localStorage.getItem(MATCH_KEY) || 'null');
+        const chat = match && match.chat ? match.chat : [];
+        const chatDiv = document.getElementById('chat-messages');
+        chatDiv.innerHTML = chat.map(msg =>
+          `<div><b style="color:#00BFFF">${msg.user}</b> : ${msg.text}</div>`
+        ).join('');
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+      }
+      window.sendChatMessage = function() {
+        const input = document.getElementById('chat-input');
+        const text = input.value.trim();
+        if (!text) return;
+        const match = JSON.parse(localStorage.getItem(MATCH_KEY) || 'null');
+        if (!match) return;
+        match.chat = match.chat || [];
+        match.chat.push({ user: currentUser.username, text });
+        localStorage.setItem(MATCH_KEY, JSON.stringify(match));
+        input.value = '';
+        renderChat();
+      };
+      renderChat();
+      window._eryth_chat_interval = setInterval(renderChat, 1000);
+    }
+
+    function showBackArrow() {
+      if (document.getElementById('back-arrow')) return;
+      const arrow = document.createElement('button');
+      arrow.id = 'back-arrow';
+      arrow.innerHTML = '←';
+      arrow.title = "Quitter la file d'attente";
+      arrow.style.position = 'fixed';
+      arrow.style.top = '28px';
+      arrow.style.right = '36px';
+      arrow.style.zIndex = '10001';
+      arrow.style.background = 'rgba(24,31,42,0.92)';
+      arrow.style.color = '#00BFFF';
+      arrow.style.fontSize = '2.2rem';
+      arrow.style.fontWeight = '900';
+      arrow.style.border = 'none';
+      arrow.style.borderRadius = '50%';
+      arrow.style.width = '54px';
+      arrow.style.height = '54px';
+      arrow.style.cursor = 'pointer';
+      arrow.style.boxShadow = '0 2px 12px rgba(0,0,0,0.12)';
+      arrow.onmouseenter = () => arrow.style.background = '#232b3a';
+      arrow.onmouseleave = () => arrow.style.background = 'rgba(24,31,42,0.92)';
+      document.body.appendChild(arrow);
+
+      arrow.onclick = function() {
+        document.getElementById('leave-modal').style.display = 'flex';
+      };
+    }
+    function removeBackArrow() {
+      const arrow = document.getElementById('back-arrow');
+      if (arrow) arrow.remove();
+    }
+
+    document.getElementById('leave-confirm').onclick = function() {
+      const user = getCurrentUserObj();
+      if (user) leaveQueue(user.username);
+      document.getElementById('leave-modal').style.display = 'none';
+      removeBackArrow();
+      window.onbeforeunload = null;
+      window.location.href = "index.html";
+    };
+    document.getElementById('leave-cancel').onclick = function() {
+      document.getElementById('leave-modal').style.display = 'none';
+    };
+
+    document.getElementById('find-match-btn').onclick = function() {
+      const user = getCurrentUserObj();
+      if (!user) {
+        alert("Vous devez être connecté pour utiliser le matchmaking.");
+        return;
+      }
+      document.getElementById('loader-bg').style.display = 'flex';
+      document.getElementById('main-container').style.display = 'none';
+
+      joinQueue(user);
+      showBackArrow();
+
+      let waiting = true;
+      let interval = setInterval(() => {
+        let match = getCurrentMatch(user);
+        if (match) {
+          clearInterval(interval);
+          waiting = false;
+          removeBackArrow();
+          document.getElementById('leave-modal').style.display = 'none';
+          showMatch(match, user);
+          return;
+        }
+        match = tryFindMatch(user);
+        if (match) {
+          clearInterval(interval);
+          waiting = false;
+          removeBackArrow();
+          document.getElementById('leave-modal').style.display = 'none';
+          showMatch(match, user);
+          return;
+        }
+      }, 1200);
+
+      window.onbeforeunload = function() {
+        leaveQueue(user.username);
+      };
+    };
+
+    window.addEventListener('DOMContentLoaded', function() {
+      const user = getCurrentUserObj();
+      if (user) {
+        const match = getCurrentMatch(user);
+        if (match) {
+          showMatch(match, user);
+        }
+      }
+    });
+  </script>
+  <footer class="mini-footer">
+    © 2025 Eryth – Synécisme. Le contenu de ce site est protégé, veuillez nous contactez s'il y a un probleme affilié à notre site.
+  </footer>
+</body>
+</html>

@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1383744346720964719/1386659176280756234/IMG_2986.jpg?ex=685c7cbe&is=685b2b3e&hm=6f08d0c740f8bc82e3c9ca1c720bdb8fc54be8af7fcb0c8f802571d3c207fd46&">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eryth project</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="particles-bg" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;"></canvas>
+  <section class="page">
+    <nav style="background:transparent;box-shadow:none;border:none;">
+      <div class="onglets"></div>
+    </nav>
+
+    <div class="pages-container" style="display:flex;justify-content:center;gap:32px;margin:40px 0 24px 0;">
+      <a href="https://discord.gg/Ksf55MC5RH" target="_blank" rel="noopener" class="page-link" style="display:flex;align-items:center;gap:10px;padding:18px 28px;background:#181f2a;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,0.12);text-decoration:none;transition:background 0.2s;">
+        <img src="https://img.freepik.com/premium-psd/discord-logo-3d-icon-render-image_576588-55.jpg" alt="Discord" style="width:38px;height:38px;border-radius:8px;">
+        <div>
+          <div style="font-weight:700;color:#fff;font-size:1.1rem;">Discord</div>
+          <div style="color:#00BFFF;font-size:0.98rem;">Rejoindre la communauté</div>
+        </div>
+      </a>
+      <a href="https://www.tiktok.com/@eryth.clan" target="_blank" rel="noopener" class="page-link" style="display:flex;align-items:center;gap:10px;padding:18px 28px;background:#181f2a;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,0.12);text-decoration:none;transition:background 0.2s;">
+        <img src="https://static.vecteezy.com/system/resources/previews/022/488/730/original/3d-render-tiktok-logo-icon-isolated-on-transparent-background-free-png.png" alt="TikTok" style="width:38px;height:38px;border-radius:8px;">
+        <div>
+          <div style="font-weight:700;color:#fff;font-size:1.1rem;">TikTok</div>
+          <div style="color:#00BFFF;font-size:0.98rem;">Clips & vidéos du clan</div>
+        </div>
+      </a>
+      <a href="https://x.com/erythclan?s=21" target="_blank" rel="noopener" class="page-link" style="display:flex;align-items:center;gap:10px;padding:18px 28px;background:#181f2a;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,0.12);text-decoration:none;transition:background 0.2s;">
+        <img src="https://img.freepik.com/premium-psd/3d-twitter-new-logo-x-white-3d-render-transparent_219784-134.jpg" alt="Twitter" style="width:38px;height:38px;border-radius:8px;">
+        <div>
+          <div style="font-weight:700;color:#fff;font-size:1.1rem;">Twitter/X</div>
+          <div style="color:#00BFFF;font-size:0.98rem;">Actualités & annonces</div>
+        </div>
+      </a>
+    </div>
+  
+    <div class="header-center" style="text-align:center;">
+      <h1 style="
+        color:#00BFFF;
+        font-size:4rem;
+        letter-spacing:2px;
+        font-family:'Inter', Arial, Helvetica, sans-serif;
+        font-weight:900;
+        text-transform:uppercase;
+        text-shadow:
+          2px 2px 0 #222,
+          4px 4px 0 #111,
+          0 2px 16px rgba(0,191,255,0.18),
+          0 1px 0 #fff;
+        margin-bottom: 10px;
+        text-align:center;
+      ">
+        Eryth clan
+      </h1>
+      <span id="subtitle-typing" style="
+        display:block;
+        margin: 0 auto 18px auto;
+        text-align:center;
+        font-size:1.1rem;
+        color:#00BFFF;
+        font-family:'Inter', Arial, Helvetica, sans-serif;
+        font-weight:600;
+        letter-spacing:1px;
+        min-height:1.3em;
+        width:max-content;
+      "></span>
+      <a href="matchmaking.html" id="matchmaking-btn" style="
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        width:440px;
+        height:120px;
+        margin:12px auto 36px auto;
+        border-radius:16px;
+        box-shadow:0 4px 18px rgba(0,0,0,0.24);
+        background:#00BFFF;
+        color:#fff;
+        font-size:2.2rem;
+        font-family:'Inter', Arial, Helvetica, sans-serif;
+        font-weight:900;
+        letter-spacing:1px;
+        text-transform:uppercase;
+        text-decoration:none;
+        transition:background 0.2s;
+        cursor:pointer;
+      ">
+        Matchmaking
+      </a>
+      <img
+        src="https://cdn.discordapp.com/attachments/1383744346720964719/1386659176280756234/IMG_2986.jpg?ex=686119fe&is=685fc87e&hm=7797787287a0268deae9ddc3651c48ec4fb1dede16c661b80b45dbd2d5e060a1&"
+        alt="Logo Eryth"
+        style="display:block;margin:18px auto 0 auto;width:90px;height:90px;object-fit:cover;border-radius:50%;box-shadow:0 4px 24px rgba(0,0,0,0.18);"
+      >
+    </div>
+    <div class="btns-container">
+      <a href="#" class="center-btn">Accueil</a>
+      <a href="#" class="center-btn">Notre biographie</a>
+      <a href="#" class="center-btn">Aide</a>
+    </div>
+    
+  </section>
+</div>
+    <div class="btns-container">
+      <a href="#" class="center-btn">Accueil</a>
+      <a href="#" class="center-btn">Notre biographie</a>
+      <a href="#" class="center-btn">Aide</a>
+    </div>
+  </section>
+
+  <div id="accueil-modal" class="bio-modal">
+    <div class="bio-content">
+      <span class="bio-close" id="close-accueil">&times;</span>
+      <h2 style="color:#00BFFF; font-size:2.2rem; letter-spacing:1px; font-family:'Lato','Segoe UI',Arial,sans-serif; font-weight:900; text-transform:uppercase; margin-bottom:18px;">
+        Bienvenue sur le site de la Eryth
+      </h2>
+      <p style="font-size:1.08rem;">
+        Notre clan, tout juste revenu dans la communauté, se distingue par sa convivialité et sa passion.<br><br>
+        <strong>Nos objectifs :</strong><br>
+        – Réaliser le maximum de SM dans tous les modes de jeu.<br>
+        – Être reconnus pour nos performances et notre esprit de compétition.<br>
+        – Favoriser la progression de chaque membre dans une ambiance chaleureuse et collective.<br><br>
+        Pour en savoir plus sur notre histoire, nos valeurs ou suivre nos actualités, utilise les boutons en haut à gauche de ton écran.<br>
+        Rejoins-nous dans cette aventure et participe à l’ascension du clan Eryth !
+      </p>
+    </div>
+  </div>
+
+  <div id="bio-modal" class="bio-modal">
+    <div class="bio-content">
+      <span class="bio-close" id="close-bio">&times;</span>
+      <h2 style="color:#00BFFF;">Notre biographie</h2>
+      <p>
+        Eryth, c’est avant tout un clan convivial et passionné, tout juste revenu dans la communauté !<br><br>
+        Notre principal but : réaliser le maximum de SM dans tous les modes de jeu, et être reconnus pour cette performance et cet esprit de compétition.<br><br>
+        Nous croyons en la force du collectif, dans une ambiance chaleureuse où chaque membre peut progresser, partager ses expériences et s’amuser.<br><br>
+        Si tu veux en apprendre plus sur notre histoire, nos valeurs ou simplement suivre nos actualités, clique sur les boutons en haut à gauche de ton écran.<br><br>
+        Rejoins-nous dans cette aventure et participe à l’ascension du clan Eryth !
+      </p>
+    </div>
+  </div>
+
+  <div id="aide-modal" class="bio-modal">
+    <div class="bio-content">
+      <span class="bio-close" id="close-aide">&times;</span>
+      <h2 style="color:#00BFFF;">Aide & Contact</h2>
+      <p>
+        Bienvenue dans l’espace d’aide du clan Eryth !<br><br>
+        Notre équipe est à votre écoute pour toute question, suggestion ou problème rencontré sur le site ou au sein de la communauté.<br><br>
+        Pour garantir une réponse rapide et personnalisée, nous vous invitons à nous contacter directement via notre serveur Discord. Vous y trouverez un espace d’entraide, des annonces importantes, des salons de discussion et la possibilité d’échanger avec les membres et l’administration.<br><br>
+        Rejoindre notre Discord, c’est aussi profiter d’une communauté active, de conseils, d’événements exclusifs et d’un support réactif.<br><br>
+        N’hésitez pas à nous rejoindre pour toute demande ou simplement pour discuter avec nous !
+      </p>
+      <a href="https://discord.gg/Ksf55MC5RH" target="_blank" rel="noopener" class="center-btn" style="display:inline-block;margin-top:8px;">
+        Rejoindre le discord
+      </a>
+    </div>
+  </div>
+
+  <button id="user-btn" style="position:fixed;top:32px;right:150px;width:48px;height:48px;border-radius:50%;background:rgba(40,40,40,0.7);border:none;box-shadow:0 4px 18px rgba(0,0,0,0.18);z-index:102;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User" style="width:28px;height:28px;">
+  </button>
+
+
+  <div id="login-modal" class="bio-modal">
+    <div class="bio-content" style="max-width:350px;">
+      <span class="bio-close" id="close-login">&times;</span>
+      <h2 style="margin-bottom:10px;">Connexion</h2>
+      <form id="login-form" autocomplete="off">
+        <input id="login-username" type="text" placeholder="Nom d'utilisateur" style="width:90%;margin-bottom:12px;padding:10px;border-radius:8px;border:none;">
+        <input id="login-password" type="password" placeholder="Mot de passe" style="width:90%;margin-bottom:18px;padding:10px;border-radius:8px;border:none;">
+        <div id="login-error" style="color:#f54266;font-size:1rem;margin-bottom:10px;min-height:22px;"></div>
+        <button type="submit" class="center-btn" style="width:100%;">Se connecter</button>
+      </form>
+      <div style="margin-top:18px;">
+        <a href="#" id="show-register" style="color:#00BFFF;text-decoration:underline;font-size:1rem;">Créer un compte</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="register-modal" class="bio-modal">
+    <div class="bio-content" style="max-width:350px;">
+      <span class="bio-close" id="close-register">&times;</span>
+      <h2 style="margin-bottom:10px;">Créer un compte</h2>
+      <form id="register-form" autocomplete="off">
+        <input id="register-username" type="text" placeholder="Nom d'utilisateur" style="width:90%;margin-bottom:12px;padding:10px;border-radius:8px;border:none;">
+        <input id="register-password" type="password" placeholder="Mot de passe" style="width:90%;margin-bottom:12px;padding:10px;border-radius:8px;border:none;">
+        
+        <div id="register-error" style="color:#f54266;font-size:1rem;margin-bottom:10px;min-height:22px;"></div>
+        <button type="submit" class="center-btn" style="width:100%;">Créer mon compte</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="mini-footer">
+    © 2025 Eryth – Synécisme. Le contenu de ce site est protégé, veuillez nous contactez s'il y a un probleme affilié à notre site.
+  </footer>
+
+  <img
+    src="https://cdn.discordapp.com/attachments/1383744346720964719/1386659176280756234/IMG_2986.jpg?ex=686119fe&is=685fc87e&hm=7797787287a0268deae9ddc3651c48ec4fb1dede16c661b80b45dbd2d5e060a1&"
+    alt="Logo Eryth"
+    style="position:fixed;top:90px;right:32px;width:90px;height:90px;object-fit:cover;border-radius:50%;box-shadow:0 4px 24px rgba(0,0,0,0.18);z-index:100;"
+  >
+
+  <script>
+
+    let users = JSON.parse(localStorage.getItem('eryth_users') || '[]');
+    function saveUsers() {
+      localStorage.setItem('eryth_users', JSON.stringify(users));
+    }
+
+  
+    function setCurrentUser(username) {
+      localStorage.setItem('eryth_current_user', username);
+    }
+    function getCurrentUser() {
+      return localStorage.getItem('eryth_current_user');
+    }
+    function clearCurrentUser() {
+      localStorage.removeItem('eryth_current_user');
+    }
+
+ 
+    document.getElementById('show-register').onclick = function(e) {
+      e.preventDefault();
+      document.getElementById('login-modal').classList.remove('show');
+      document.getElementById('register-modal').classList.add('show');
+      document.getElementById('register-username').value = '';
+      document.getElementById('register-password').value = '';
+      document.getElementById('register-error').textContent = '';
+    };
+
+
+    document.getElementById('login-form').onsubmit = function(e) {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+      const errorDiv = document.getElementById('login-error');
+      if (!username || !password) {
+        errorDiv.textContent = "Veuillez remplir tous les champs.";
+        return;
+      }
+      const user = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+      if (!user) {
+        errorDiv.textContent = "Nom d'utilisateur ou mot de passe incorrect, ou compte inexistant.";
+        return;
+      }
+      errorDiv.style.color = "#00BFFF";
+      errorDiv.textContent = "Connexion réussie !";
+      setTimeout(() => {
+        document.getElementById('login-modal').classList.remove('show');
+        errorDiv.textContent = "";
+        errorDiv.style.color = "#f54266";
+        setCurrentUser(user.username);
+        updateUserBtn(user.username);
+        showUserOptions(user.username);
+      }, 1000);
+    };
+
+
+    document.getElementById('register-form').onsubmit = function(e) {
+      e.preventDefault();
+      const username = document.getElementById('register-username').value.trim();
+      const password = document.getElementById('register-password').value;
+      const email = document.getElementById('register-email').value.trim();
+      const errorDiv = document.getElementById('register-error');
+      if (!username || !password || !email) {
+        errorDiv.textContent = "Veuillez remplir tous les champs.";
+        return;
+      }
+      if (users.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+        errorDiv.textContent = "Ce nom d'utilisateur existe déjà.";
+        return;
+      }
+      users.push({ username, password, email });
+      saveUsers();
+      errorDiv.style.color = "#00BFFF";
+      errorDiv.textContent = "Compte créé ! Vous êtes connecté.";
+      setTimeout(() => {
+        document.getElementById('register-modal').classList.remove('show');
+        errorDiv.textContent = "";
+        errorDiv.style.color = "#f54266";
+        setCurrentUser(username);
+        updateUserBtn(username);
+        showUserOptions(username);
+      }, 1000);
+    };
+
+
+    function updateUserBtn(username) {
+      const btn = document.getElementById('user-btn');
+      btn.innerHTML = `
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User" style="width:28px;height:28px;">
+        <span style="color:#00BFFF;font-weight:700;margin-left:8px;">${username}</span>
+      `;
+      btn.onclick = function() {
+        showUserOptions(username);
+      };
+    }
+
+
+    function resetUserBtn() {
+      const btn = document.getElementById('user-btn');
+      btn.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User" style="width:28px;height:28px;">`;
+      btn.onclick = function() {
+        document.getElementById('login-modal').classList.add('show');
+      };
+    }
+
+    function showUserOptions(username) {
+      let old = document.getElementById('user-options-modal');
+      if (old) old.remove();
+      const user = users.find(u => u.username === username);
+      const modal = document.createElement('div');
+      modal.id = 'user-options-modal';
+      modal.className = 'bio-modal show';
+      modal.innerHTML = `
+        <div class="bio-content" style="max-width:340px;display:flex;flex-direction:column;align-items:center;">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User" style="width:54px;height:54px;border-radius:50%;margin-bottom:10px;">
+          <div style="font-size:1.2rem;color:#00BFFF;font-weight:700;margin-bottom:10px;">${username}</div>
+          <div style="font-size:0.98rem;color:#aaa;margin-bottom:10px;">${user && user.email ? user.email : ''}</div>
+          <div style="display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:10px;">
+            <button class="center-btn" style="width:100%;" onclick="window.location.href='profil.html'">Mon profil</button>
+            <button class="center-btn" style="width:100%;" onclick="window.location.href='parametres.html'">Paramètres</button>
+            <button class="center-btn" style="width:100%;background:#f54266;color:#fff;" id="delete-account-btn">Supprimer le compte</button>
+            <button class="center-btn" style="width:100%;" id="logout-btn">Se déconnecter</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.onclick = function(e) {
+        if (e.target === modal) modal.remove();
+      };
+      modal.querySelector('#logout-btn').onclick = function() {
+        clearCurrentUser();
+        resetUserBtn();
+        modal.remove();
+      };
+      modal.querySelector('#delete-account-btn').onclick = function() {
+        if (confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")) {
+          const idx = users.findIndex(u => u.username === username);
+          if (idx !== -1) {
+            users.splice(idx, 1);
+            saveUsers();
+          }
+          clearCurrentUser();
+          resetUserBtn();
+          modal.remove();
+          alert("Votre compte a été supprimé.");
+        }
+      };
+    }
+
+
+    document.getElementById('close-login').onclick = function() {
+      document.getElementById('login-modal').classList.remove('show');
+    };
+    document.getElementById('close-register').onclick = function() {
+      document.getElementById('register-modal').classList.remove('show');
+    };
+    ['login-modal','register-modal'].forEach(id => {
+      document.getElementById(id).onclick = function(e) {
+        if (e.target === this) this.classList.remove('show');
+      };
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        document.getElementById('login-modal').classList.remove('show');
+        document.getElementById('register-modal').classList.remove('show');
+        let userModal = document.getElementById('user-options-modal');
+        if (userModal) userModal.remove();
+      }
+    });
+
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      const current = getCurrentUser();
+      if (current) {
+        updateUserBtn(current);
+      } else {
+        resetUserBtn();
+      }
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById('accueil-modal').classList.add('show');
+      // Typing effect for subtitle
+      const text = "Aucun ne peut rivaliser...";
+      const el = document.getElementById("subtitle-typing");
+      let i = 0;
+      function type() {
+        if (i <= text.length) {
+          el.textContent = text.slice(0, i);
+          i++;
+          setTimeout(type, 55);
+        }
+      }
+      type();
+    });
+
+    function closeAllModals() {
+      document.getElementById('accueil-modal').classList.remove('show');
+      document.getElementById('bio-modal').classList.remove('show');
+      document.getElementById('aide-modal').classList.remove('show');
+    }
+
+    document.querySelector('.center-btn:nth-child(1)').onclick = function(e) {
+      e.preventDefault();
+      closeAllModals();
+      document.getElementById('accueil-modal').classList.add('show');
+    };
+    document.querySelector('.center-btn:nth-child(2)').onclick = function(e) {
+      e.preventDefault();
+      closeAllModals();
+      document.getElementById('bio-modal').classList.add('show');
+    };
+    document.querySelector('.center-btn:nth-child(3)').onclick = function(e) {
+      e.preventDefault();
+      closeAllModals();
+      document.getElementById('aide-modal').classList.add('show');
+    };
+
+    document.getElementById('close-accueil').onclick = function() {
+      document.getElementById('accueil-modal').classList.remove('show');
+    };
+    document.getElementById('close-bio').onclick = function() {
+      document.getElementById('bio-modal').classList.remove('show');
+    };
+    document.getElementById('close-aide').onclick = function() {
+      document.getElementById('aide-modal').classList.remove('show');
+    };
+
+    document.getElementById('accueil-modal').onclick = function(e) {
+      if (e.target === this) this.classList.remove('show');
+    };
+    document.getElementById('bio-modal').onclick = function(e) {
+      if (e.target === this) this.classList.remove('show');
+    };
+    document.getElementById('aide-modal').onclick = function(e) {
+      if (e.target === this) this.classList.remove('show');
+    };
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeAllModals();
+      }
+    });
+
+
+    const canvas = document.getElementById('particles-bg');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function createParticles() {
+      particles = [];
+      const count = Math.floor(window.innerWidth / 8);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.8 + 0.7,
+          d: Math.random() * 0.5 + 0.2,
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: Math.random() * 0.4 + 0.1
+        });
+      }
+    }
+    createParticles();
+    window.addEventListener('resize', createParticles);
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+        ctx.fillStyle = "rgba(255,255,255,0.85)";
+        ctx.shadowColor = "#fff";
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    function updateParticles() {
+      for (let p of particles) {
+        p.y += p.vy;
+        p.x += p.vx;
+        if (p.y > canvas.height) {
+          p.y = -p.r;
+          p.x = Math.random() * canvas.width;
+        }
+        if (p.x < 0 || p.x > canvas.width) {
+          p.x = Math.random() * canvas.width;
+        }
+      }
+    }
+
+    function animate() {
+      drawParticles();
+      updateParticles();
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+
+<script>
+
+  function updateUserBtn(username) {
+    const btn = document.getElementById('user-btn');
+    btn.innerHTML = `
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User" style="width:28px;height:28px;">
+      <span style="color:#00BFFF;font-weight:700;margin-left:8px;">${username}</span>
+    `;
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      showUserColumn(username);
+    };
+  }
+
+
+  function showUserColumn(username) {
+
+    let old = document.getElementById('user-column');
+    if (old) old.remove();
+
+    const user = users.find(u => u.username === username);
+    const column = document.createElement('div');
+    column.id = 'user-column';
+    column.style.position = 'fixed';
+    column.style.top = '0';
+    column.style.right = '0';
+    column.style.height = '100vh';
+    column.style.width = '320px';
+    column.style.background = 'linear-gradient(135deg, #202736 60%, #181f2a 100%)';
+    column.style.boxShadow = '-4px 0 24px rgba(0,0,0,0.18)';
+    column.style.zIndex = '9999';
+    column.style.display = 'flex';
+    column.style.flexDirection = 'column';
+    column.style.alignItems = 'center';
+    column.style.padding = '36px 24px 24px 24px';
+    column.style.transition = 'right 0.2s';
+
+    column.innerHTML = `
+      <button id="close-user-column" style="position:absolute;top:18px;right:18px;background:none;border:none;font-size:2rem;color:#00BFFF;cursor:pointer;">&times;</button>
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User" style="width:64px;height:64px;border-radius:50%;margin-bottom:12px;">
+      <div style="font-size:1.3rem;color:#00BFFF;font-weight:700;margin-bottom:6px;">${username}</div>
+      <div style="font-size:1rem;color:#cbe8ff;margin-bottom:18px;">${user && user.email ? user.email : ''}</div>
+      <button class="center-btn" style="width:100%;margin-bottom:12px;" onclick="window.location.href='profil.html'">Mon profil</button>
+      <button class="center-btn" style="width:100%;margin-bottom:12px;" onclick="window.location.href='parametres.html'">Paramètres</button>
+      <button class="center-btn" style="width:100%;background:#f54266;color:#fff;margin-bottom:12px;" id="delete-account-btn">Supprimer le compte</button>
+      <button class="center-btn" style="width:100%;" id="logout-btn">Se déconnecter</button>
+    `;
+
+    document.body.appendChild(column);
+
+   
+    document.getElementById('close-user-column').onclick = function() {
+      column.remove();
+    };
+ 
+    setTimeout(() => {
+      document.addEventListener('click', closeOnClickOutside);
+    }, 10);
+    function closeOnClickOutside(e) {
+      if (!column.contains(e.target) && e.target.id !== 'user-btn') {
+        column.remove();
+        document.removeEventListener('click', closeOnClickOutside);
+      }
+    }
+ 
+    column.querySelector('#logout-btn').onclick = function() {
+      clearCurrentUser();
+      resetUserBtn();
+      column.remove();
+    };
+    column.querySelector('#delete-account-btn').onclick = function() {
+      if (confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")) {
+        const idx = users.findIndex(u => u.username === username);
+        if (idx !== -1) {
+          users.splice(idx, 1);
+          saveUsers();
+        }
+        clearCurrentUser();
+        resetUserBtn();
+        column.remove();
+        alert("Votre compte a été supprimé.");
+      }
+    };
+  }
+</script>
+
+</body>
+</html>

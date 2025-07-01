@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon Profil - Eryth</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #181f2a 0%, #232b3a 100%);
+      color: #fff;
+      font-family: 'Inter', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+    }
+    .profile-header {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(90deg, #00BFFF 0%, #232b3a 100%);
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .profile-avatar {
+      position: absolute;
+      left: 50%;
+      bottom: -60px;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 6px solid #232b3a;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      background: #fff;
+      object-fit: cover;
+    }
+    .profile-content {
+      max-width: 480px;
+      margin: 100px auto 0 auto;
+      background: #202736;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.18);
+      padding: 36px 32px 28px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+    .profile-username {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #00BFFF;
+      margin-top: 60px;
+      margin-bottom: 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 16px #00bfff33;
+    }
+    .profile-email {
+      color: #cbe8ff;
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+    }
+    .profile-actions {
+      display: flex;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .profile-btn {
+      background: #00BFFF;
+      color: #fff;
+      font-weight: 700;
+      padding: 12px 32px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      letter-spacing: 1px;
+    }
+    .profile-btn:hover {
+      background: #0099cc;
+    }
+    .profile-big-rect-vertical {
+      margin: 60px auto 80px auto;
+      width: 90vw;
+      max-width: 600px;
+      background: linear-gradient(180deg, #232b3a 60%, #1a2230 100%);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 36px 28px;
+      gap: 32px;
+    }
+    .profile-vertical-section {
+      background: rgba(32, 39, 54, 0.85);
+      border-radius: 14px;
+      padding: 24px 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .profile-vertical-title {
+      color: #00BFFF;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+    .profile-vertical-content {
+      color: #cbe8ff;
+      font-size: 1.08rem;
+    }
+    @media (max-width: 900px) {
+      .profile-big-rect-vertical {
+        max-width: 98vw;
+        padding: 18px 4vw;
+      }
+    }
+    @media (max-width: 600px) {
+      .profile-content {
+        max-width: 98vw;
+        padding: 18px 6vw;
+      }
+      .profile-header {
+        height: 140px;
+      }
+      .profile-avatar {
+        width: 80px;
+        height: 80px;
+        bottom: -40px;
+      }
+      .profile-username {
+        margin-top: 40px;
+        font-size: 1.3rem;
+      }
+      .profile-big-rect-vertical {
+        padding: 10px 2vw;
+        gap: 18px;
+      }
+      .profile-vertical-section {
+        padding: 12px 6px;
+      }
+      .profile-vertical-title {
+        font-size: 1.05rem;
+      }
+      .profile-vertical-content {
+        font-size: 0.98rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-header">
+    <img class="profile-avatar" id="profile-avatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar">
+  </div>
+  <div class="profile-content">
+    <div class="profile-username" id="profile-username">Pseudo</div>
+    <div class="profile-email" id="profile-email">email@email.com</div>
+    <div style="color:#cbe8ff;text-align:center;">
+      Bienvenue sur ton espace membre Eryth.<br>
+      Ici tu pourras bientôt modifier tes infos, voir tes stats, etc.
+    </div>
+    <div class="profile-actions">
+      <button class="profile-btn" onclick="window.location.href='parametres.html'">Paramètres</button>
+      <button class="profile-btn" onclick="window.location.href='index.html'">Accueil</button>
+    </div>
+  </div>
+  <div class="profile-big-rect-vertical">
+    <div class="profile-vertical-section">
+      <div class="profile-vertical-title">Rang actuel</div>
+      <div class="profile-vertical-content" data-type="rank"></div>
+    </div>
+    <div class="profile-vertical-section">
+      <div class="profile-vertical-title">Progression</div>
+      <div class="profile-vertical-content" data-type="progress"></div>
+    </div>
+    <div class="profile-vertical-section">
+      <div class="profile-vertical-title">Statistiques</div>
+      <div class="profile-vertical-content" data-type="stats"></div>
+    </div>
+    <div class="profile-vertical-section">
+      <div class="profile-vertical-title">Classement du clan</div>
+      <div class="profile-vertical-content" data-type="clanrank"></div>
+    </div>
+  </div>
+  <script>
+
+    const users = JSON.parse(localStorage.getItem('eryth_users') || '[]');
+    const current = localStorage.getItem('eryth_current_user');
+    if (current) {
+      const user = users.find(u => u.username === current);
+      if (user) {
+       
+        const rank = (!user.rank || user.rank === "" || user.rank === undefined) ? "Non classé" : user.rank;
+        const elo = (!user.elo || user.elo < 0) ? 0 : user.elo;
+
+        document.getElementById('profile-username').textContent = user.username;
+        document.getElementById('profile-email').textContent = user.email;
+
+        document.querySelector('.profile-vertical-content[data-type="rank"]').innerHTML =
+          `${rank}<br><span style='font-size:1.1rem;color:#00BFFF;'>ELO : ${elo} pts</span>`;
+
+        document.querySelector('.profile-vertical-content[data-type="progress"]').innerHTML =
+          "Prochain rang : " + (elo >= 1500 ? "Max" : "Platinum I (1500 pts)") +
+          `<div style="background:#222;height:18px;border-radius:8px;overflow:hidden;margin-top:8px;">
+            <div style="background:#00BFFF;width:${Math.min(100, elo/1500*100)}%;height:100%;"></div>
+          </div>
+          <div style="font-size:0.95rem;color:#cbe8ff;margin-top:4px;">${elo} / 1500</div>`;
+
+        document.querySelector('.profile-vertical-content[data-type="stats"]').innerHTML =
+          `Matchs joués : ${user.matches || 0}<br>
+          Victoires : ${user.wins || 0}<br>
+          Défaites : ${user.losses || 0}<br>
+          Winrate : ${user.matches ? Math.round((user.wins || 0) / user.matches * 100) : 0}%<br>
+          Meilleure série : ${user.winstreak || 0} victoires`;
+
+        document.querySelector('.profile-vertical-content[data-type="clanrank"]').innerHTML =
+          user.clanRank ? `${user.clanRank}<sup>ème</sup> sur ${users.length} membres` : "Non classé";
+      }
+    }
+  </script>
+<footer class="mini-footer">
+    © 2025 Eryth – Synécisme. Le contenu de ce site est protégé, veuillez nous contactez s'il y a un probleme affilié à notre site.
+  </footer>
+
+</body>
+</html>

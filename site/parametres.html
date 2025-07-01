@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Paramètres</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      height: 100vh;
+      background: linear-gradient(135deg, #181f2a 0%, #232b3a 100%);
+      color: #fff;
+      font-family: 'Inter', Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, color 0.3s;
+    }
+    .settings-fullscreen {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(24,31,42,0.98);
+      transition: background 0.3s;
+    }
+    .settings-title {
+      color: #00BFFF;
+      font-size: 2.6rem;
+      font-weight: 900;
+      margin-bottom: 32px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+      text-shadow: 0 2px 16px #00bfff33;
+    }
+    .settings-list {
+      width: 100%;
+      max-width: 500px;
+      background: #202736;
+      border-radius: 18px;
+      padding: 36px 32px 28px 32px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.18);
+      margin-bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      transition: background 0.3s;
+    }
+    .settings-list label {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 1.18rem;
+      color: #cbe8ff;
+      background: #232b3a;
+      border-radius: 10px;
+      padding: 18px 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+    }
+    .settings-list label:hover {
+      background: #222e3c;
+    }
+    .settings-list input[type="checkbox"] {
+      accent-color: #00BFFF;
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+    }
+    .settings-btn {
+      display: inline-block;
+      background: #00BFFF;
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 48px;
+      border-radius: 10px;
+      border: none;
+      text-decoration: none;
+      font-size: 1.18rem;
+      margin-top: 10px;
+      transition: background 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+    .settings-btn:hover {
+      background: #0099cc;
+    }
+   
+    body.light-mode {
+      background: linear-gradient(135deg, #eaf6ff 0%, #f6fafd 100%);
+      color: #232b3a;
+    }
+    .light-mode .settings-fullscreen {
+      background: rgba(255,255,255,0.98);
+    }
+    .light-mode .settings-title {
+      color: #0077b6;
+      text-shadow: 0 2px 16px #0077b622;
+    }
+    .light-mode .settings-list {
+      background: #f2f7fa;
+    }
+    .light-mode .settings-list label {
+      background: #eaf6ff;
+      color: #232b3a;
+    }
+    .light-mode .settings-list label:hover {
+      background: #d0eaff;
+    }
+    .light-mode .settings-btn {
+      background: #0077b6;
+      color: #fff;
+    }
+    .light-mode .settings-btn:hover {
+      background: #005f8a;
+    }
+    @media (max-width: 600px) {
+      .settings-list {
+        max-width: 98vw;
+        padding: 18px 6vw;
+      }
+      .settings-title {
+        font-size: 2rem;
+      }
+    }
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(0,191,255,0.25);
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
+      z-index: 2;
+    }
+    @keyframes ripple {
+      to {
+        transform: scale(2.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="settings-fullscreen">
+    <div class="settings-title">Paramètres</div>
+    <div class="settings-list">
+      <label>
+        <input type="checkbox" id="darkmode-toggle">
+        Mode sombre
+      </label>
+      <label>
+        <input type="checkbox" id="notif-toggle">
+        Recevoir les notifications
+      </label>
+      <label>
+        <input type="checkbox" id="security-toggle">
+        Sécurité avancée
+      </label>
+      <label>
+        <input type="checkbox" id="suggest-toggle">
+        Suggestions personnalisées
+      </label>
+    </div>
+    <a href="index.html" class="settings-btn">Retour à l'accueil</a>
+  </div>
+  <script>
+
+    function addRippleEffect(btn) {
+      btn.addEventListener('click', function(e) {
+        const circle = document.createElement('span');
+        circle.className = 'ripple';
+        this.appendChild(circle);
+        const d = Math.max(this.clientWidth, this.clientHeight);
+        circle.style.width = circle.style.height = d + 'px';
+        circle.style.left = (e.clientX - this.getBoundingClientRect().left - d/2) + 'px';
+        circle.style.top = (e.clientY - this.getBoundingClientRect().top - d/2) + 'px';
+        setTimeout(() => circle.remove(), 600);
+      });
+    }
+    document.querySelectorAll('.settings-btn').forEach(addRippleEffect);
+
+
+    const darkToggle = document.getElementById('darkmode-toggle');
+    if(localStorage.getItem('eryth_darkmode') === 'light') {
+      document.body.classList.add('light-mode');
+      darkToggle.checked = false;
+    } else {
+      document.body.classList.remove('light-mode');
+      darkToggle.checked = true;
+    }
+    darkToggle.addEventListener('change', function() {
+      if(this.checked) {
+        document.body.classList.remove('light-mode');
+        localStorage.setItem('eryth_darkmode', 'dark');
+      } else {
+        document.body.classList.add('light-mode');
+        localStorage.setItem('eryth_darkmode', 'light');
+      }
+    });
+
+    
+    const notifToggle = document.getElementById('notif-toggle');
+    notifToggle.checked = localStorage.getItem('eryth_notif') === 'on';
+    notifToggle.addEventListener('change', function() {
+      if(this.checked) {
+        localStorage.setItem('eryth_notif', 'on');
+        alert("Notifications activées");
+      } else {
+        localStorage.setItem('eryth_notif', 'off');
+        alert("Notifications désactivées");
+      }
+    });
+
+   
+    const securityToggle = document.getElementById('security-toggle');
+    securityToggle.checked = localStorage.getItem('eryth_security') === 'on';
+    securityToggle.addEventListener('change', function() {
+      if(this.checked) {
+        localStorage.setItem('eryth_security', 'on');
+        alert("Sécurité avancée activée");
+      } else {
+        localStorage.setItem('eryth_security', 'off');
+        alert("Sécurité avancée désactivée");
+      }
+    });
+
+
+    const suggestToggle = document.getElementById('suggest-toggle');
+    suggestToggle.checked = localStorage.getItem('eryth_suggest') === 'on';
+    suggestToggle.addEventListener('change', function() {
+      if(this.checked) {
+        localStorage.setItem('eryth_suggest', 'on');
+        alert("Suggestions personnalisées activées");
+      } else {
+        localStorage.setItem('eryth_suggest', 'off');
+        alert("Suggestions personnalisées désactivées");
+      }
+    });
+  </script>
+
+<footer class="mini-footer">
+    © 2025 Eryth – Synécisme. Le contenu de ce site est protégé, veuillez nous contactez s'il y a un probleme affilié à notre site.
+  </footer>
+
+</body>
+</html>
